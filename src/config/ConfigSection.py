@@ -5,6 +5,9 @@ from xml.dom import NotFoundErr
 __author__="proger"
 __date__ ="$Jan 31, 2011 5:01:16 PM$"
 
+
+# Section of a config
+# Can contain another sections or attributes
 class ConfigSection:
     def __init__(self):
         self.sections = {}
@@ -48,6 +51,7 @@ class ConfigSection:
     def delAtribute(self, attributeName):
         del self.attributes[attributeName]
 
+    # TODO use StringParser class here
     def _stringParser(stringToParse):
         return stringToParse
 

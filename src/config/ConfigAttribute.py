@@ -4,7 +4,10 @@
 __author__="proger"
 __date__ ="$Jan 31, 2011 5:05:04 PM$"
 
-
+# Single attribute in config.
+# This class contains two fields:
+#    configString - string that was read in config after the '=' sign
+#    value - parsed value.
 class ConfigAttribute:
     def __init__(self, configString = "", value = None):
         self.configString = configString
