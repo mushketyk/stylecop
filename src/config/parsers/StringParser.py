@@ -4,8 +4,9 @@
 __author__="proger"
 __date__ ="$Jan 31, 2011 6:13:53 PM$"
 
-from ply.lex import LexError
-from AbstractParser import AbstractParser
+# from ply.lex import LexError
+from config.parsers.AbstractParser import AbstractParser
+from config.ConfigParsingException import ConfigParsingException
 
 # TODO Add unit tests
 class StringParser(AbstractParser):
@@ -16,32 +17,34 @@ class StringParser(AbstractParser):
 
     def t_WS_STRING(self, t):
         r"'((\S)|(\s))*'"
-        t.value = t.value.strip("'").strip()
+        t.value = t.value.strip("'")
         return t
 
     def t_NOWS_STRING(self, t):
-        r"(\S)+"
+        r"[^ \t\n\r\f\v']+"
         return t
 
     def t_error(self, t):
         # TODO Use logger instead of print
         errorMessage = "Error parsing string " + str(self.stringToParse)
         print(errorMessage)
-        raise ValueError(errorMessage)
+        raise ConfigParsingException(errorMessage)
 
     def __init__(self):
         AbstractParser.__init__(self)
 
-    def getValue(self, stringToParse):
+    def parse(self, stringToParse):
         self.stringToParse = stringToParse
         trimed = stringToParse.strip()
 
         self.lexer.input(trimed)
-        return self.lexer.next()
+        token = self.lexer.next()
+        return token.value
+
 
 
 if __name__ == "__main__":
     import sys
     sp = StringParser()
-    val = sp.getValue("'asa bcd'   ")
+    val = sp.parse("'asa bcd   ")
     print(val)

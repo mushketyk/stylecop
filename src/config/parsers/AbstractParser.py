@@ -15,6 +15,6 @@ class AbstractParser:
         self.lexer = ply.lex.lex(module = self)
 
     # Parse stringToParse into object that this parser is able to parse
-    def getValue(self, stringToParse):
+    def parse(self, stringToParse):
         raise NotImplementedError('Abstract method')
 
