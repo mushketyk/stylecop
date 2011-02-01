@@ -22,11 +22,11 @@ class ConfigSection:
     def delSection(self, sectionName):
         del self.sections[sectionName]
 
-    def _getAttribute(self, parsingFunction, attributeName):
+    def _getAttribute(self, parser, attributeName):
         attribute = self.attributes[attributeName]
         if attribute.getValue() == None:
             attributeString = attribute.getString()
-            attribute.value = parsingFunction(attributeString)
+            attribute.value = parser.parse(attributeString)
             
         return attribute.value
 
@@ -38,7 +38,7 @@ class ConfigSection:
         pass
 
     def getAttributeString(self, attributeName, posibleNames):
-        value = _getAttribute(self, _stringParser, attributeName)
+        value = _getAttribute(self, StringParser(), attributeName)
 
         if value in posibleNames:
             return value
@@ -51,9 +51,6 @@ class ConfigSection:
     def delAtribute(self, attributeName):
         del self.attributes[attributeName]
 
-    # TODO use StringParser class here
-    def _stringParser(stringToParse):
-        return stringToParse
 
     def _arrayParser(stringToParse):
         raise NotImplementedError('_arrayParser is not implemented')
