@@ -8,25 +8,23 @@ __date__ ="$Jan 31, 2011 6:13:53 PM$"
 from config.parsers.AbstractParser import AbstractParser
 
 
-# TODO Add unit tests
+# Parser for string in config file. String can be either:
+#   attribute = value
+# or
+#   attribute = 'long value'
 class StringParser(AbstractParser):
-   
+
+    def p_string(self, p):
+        """
+            string : WS_STRING
+                   | NOWS_STRING
+        """
+        self.result = p[1]
 
     def __init__(self):
         AbstractParser.__init__(self)
 
-    def parse(self, stringToParse):
-        self.stringToParse = stringToParse
-        trimed = stringToParse.strip()
+    def _parse(self, stringToParse):
+        self.parser.parse(stringToParse)
 
-        self.lexer.input(trimed)
-        token = self.lexer.next()
-        return token.value
-
-
-
-if __name__ == "__main__":
-    import sys
-    sp = StringParser()
-    val = sp.parse("'asa bcd   ")
-    print(val)
+        return self.result
