@@ -21,7 +21,10 @@ class  StringParserTest(unittest.TestCase):
         self.assertEquals(result, expected, '')
 
     def testNoWS(self):
-        self.assertEquals(self.parser.parse("  ' ab  cd ' "), ' ab  cd ', '')
+        string = "  ' ab  cd ' "
+        expected = ' ab  cd '
+        result = self.parser.parse(string)
+        self.assertEquals(result, expected, '')
 
     def testErrorString(self):
         self.assertRaises(ConfigParsingException, self.parser.parse, "  'asdf ads " )
