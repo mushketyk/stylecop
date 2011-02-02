@@ -15,7 +15,10 @@ class  StringParserTest(unittest.TestCase):
     #    self.foo = None
 
     def testWS(self):
-        self.assertEquals(self.parser.parse('   abcd   '), 'abcd', '')
+        string = '   abcd   '
+        expected = 'abcd'
+        result = self.parser.parse(string)
+        self.assertEquals(result, expected, '')
 
     def testNoWS(self):
         self.assertEquals(self.parser.parse("  ' ab  cd ' "), ' ab  cd ', '')
