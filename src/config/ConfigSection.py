@@ -1,6 +1,3 @@
-from xml.dom import NotFoundErr
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
 
 __author__="proger"
 __date__ ="$Jan 31, 2011 5:01:16 PM$"
@@ -13,8 +10,11 @@ class ConfigSection:
         self.sections = {}
         self.attributes = {}
 
-    def getSections(self):
+    def getSectionNames(self):
         return [key for key in self.sections.keys()]
+
+    def getSection(self, sectionName):
+        return self.sections[sectionName]
 
     def addSection(self, sectionName, section):
         self.sections[sectionName] = section
@@ -22,41 +22,26 @@ class ConfigSection:
     def delSection(self, sectionName):
         del self.sections[sectionName]
 
-    def _getAttribute(self, parser, attributeName):
-        attribute = self.attributes[attributeName]
-        if attribute.getValue() == None:
-            attributeString = attribute.getString()
-            attribute.value = parser.parse(attributeString)
-            
-        return attribute.value
+    def getAttributeNames(self):
+        return [key for key in self.attributes.keys()]
 
+    def getAttribute(self, attributeName):
+        return self.attributes[attributeName]
 
-    def getAttributeArray(self, arrayName):
-        pass
-
-    def getAttributeDictionary(self, dictName):
-        pass
-
-    def getAttributeString(self, attributeName, posibleNames):
-        value = _getAttribute(self, StringParser(), attributeName)
-
-        if value in posibleNames:
-            return value
-        else:
-            raise ValueError(value + " isn't permited for the attribute " + attributeName)
-
-    def addAttribute(self, attributeName, attribute):
-        self.attributes[attributeName] = attribute
+    def addAttribute(self, attributeName, attributeValue):
+        self.attributes[attributeName] = attributeValue
 
     def delAtribute(self, attributeName):
         del self.attributes[attributeName]
 
+    def __str__(self):
+        res = '{'
+        for key in self.attributes.keys():
+            res += key + ':' + str(self.attributes[key]) + ','
 
-    def _arrayParser(stringToParse):
-        raise NotImplementedError('_arrayParser is not implemented')
+        for key in self.sections.keys():
+            res += key + ':' + str(self.sections[key])
 
-    def _dictParser(stringTOParse):
-        raise NotImplementedError('_dictParser is not implemented')
+        return res + '}'
 
-if __name__ == "__main__":
-    print "Hello World"
+
