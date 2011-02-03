@@ -1,0 +1,391 @@
+Created by PLY version 3.3 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    NEWLINE
+
+Grammar
+
+Rule 0     S' -> config
+Rule 1     config -> configElements
+Rule 2     configElements -> configElement
+Rule 3     configElements -> configElement configElements
+Rule 4     configElements -> empty
+Rule 5     configElement -> attributeName = attributeValue ;
+Rule 6     configElement -> section
+Rule 7     section -> [ sectionName ] { configElements }
+Rule 8     sectionName -> NOWS_STRING
+Rule 9     attributeValue -> stringValue
+Rule 10    attributeValue -> arrayValue
+Rule 11    stringValue -> WS_STRING
+Rule 12    stringValue -> NOWS_STRING
+Rule 13    attributeName -> NOWS_STRING
+Rule 14    arrayValue -> [ arrayElements ]
+Rule 15    arrayElements -> arrayElement
+Rule 16    arrayElements -> arrayElement , arrayElements
+Rule 17    arrayElements -> empty
+Rule 18    arrayElement -> WS_STRING
+Rule 19    arrayElement -> NOWS_STRING
+Rule 20    empty -> <empty>
+
+Terminals, with rules where they appear
+
+,                    : 16
+;                    : 5
+=                    : 5
+NEWLINE              : 
+NOWS_STRING          : 8 12 13 19
+WS_STRING            : 11 18
+[                    : 7 14
+]                    : 7 14
+error                : 
+{                    : 7
+}                    : 7
+
+Nonterminals, with rules where they appear
+
+arrayElement         : 15 16
+arrayElements        : 14 16
+arrayValue           : 10
+attributeName        : 5
+attributeValue       : 5
+config               : 0
+configElement        : 2 3
+configElements       : 1 3 7
+empty                : 4 17
+section              : 6
+sectionName          : 7
+stringValue          : 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . config
+    (1) config -> . configElements
+    (2) configElements -> . configElement
+    (3) configElements -> . configElement configElements
+    (4) configElements -> . empty
+    (5) configElement -> . attributeName = attributeValue ;
+    (6) configElement -> . section
+    (20) empty -> .
+    (13) attributeName -> . NOWS_STRING
+    (7) section -> . [ sectionName ] { configElements }
+
+    $end            reduce using rule 20 (empty -> .)
+    NOWS_STRING     shift and go to state 6
+    [               shift and go to state 5
+
+    section                        shift and go to state 2
+    configElements                 shift and go to state 3
+    attributeName                  shift and go to state 4
+    config                         shift and go to state 1
+    empty                          shift and go to state 7
+    configElement                  shift and go to state 8
+
+state 1
+
+    (0) S' -> config .
+
+
+
+state 2
+
+    (6) configElement -> section .
+
+    NOWS_STRING     reduce using rule 6 (configElement -> section .)
+    [               reduce using rule 6 (configElement -> section .)
+    $end            reduce using rule 6 (configElement -> section .)
+    }               reduce using rule 6 (configElement -> section .)
+
+
+state 3
+
+    (1) config -> configElements .
+
+    $end            reduce using rule 1 (config -> configElements .)
+
+
+state 4
+
+    (5) configElement -> attributeName . = attributeValue ;
+
+    =               shift and go to state 9
+
+
+state 5
+
+    (7) section -> [ . sectionName ] { configElements }
+    (8) sectionName -> . NOWS_STRING
+
+    NOWS_STRING     shift and go to state 11
+
+    sectionName                    shift and go to state 10
+
+state 6
+
+    (13) attributeName -> NOWS_STRING .
+
+    =               reduce using rule 13 (attributeName -> NOWS_STRING .)
+
+
+state 7
+
+    (4) configElements -> empty .
+
+    $end            reduce using rule 4 (configElements -> empty .)
+    }               reduce using rule 4 (configElements -> empty .)
+
+
+state 8
+
+    (2) configElements -> configElement .
+    (3) configElements -> configElement . configElements
+    (2) configElements -> . configElement
+    (3) configElements -> . configElement configElements
+    (4) configElements -> . empty
+    (5) configElement -> . attributeName = attributeValue ;
+    (6) configElement -> . section
+    (20) empty -> .
+    (13) attributeName -> . NOWS_STRING
+    (7) section -> . [ sectionName ] { configElements }
+
+  ! reduce/reduce conflict for $end resolved using rule 2 (configElements -> configElement .)
+  ! reduce/reduce conflict for } resolved using rule 2 (configElements -> configElement .)
+    $end            reduce using rule 2 (configElements -> configElement .)
+    }               reduce using rule 2 (configElements -> configElement .)
+    NOWS_STRING     shift and go to state 6
+    [               shift and go to state 5
+
+  ! $end            [ reduce using rule 20 (empty -> .) ]
+  ! }               [ reduce using rule 20 (empty -> .) ]
+
+    section                        shift and go to state 2
+    configElements                 shift and go to state 12
+    attributeName                  shift and go to state 4
+    empty                          shift and go to state 7
+    configElement                  shift and go to state 8
+
+state 9
+
+    (5) configElement -> attributeName = . attributeValue ;
+    (9) attributeValue -> . stringValue
+    (10) attributeValue -> . arrayValue
+    (11) stringValue -> . WS_STRING
+    (12) stringValue -> . NOWS_STRING
+    (14) arrayValue -> . [ arrayElements ]
+
+    WS_STRING       shift and go to state 18
+    NOWS_STRING     shift and go to state 15
+    [               shift and go to state 17
+
+    stringValue                    shift and go to state 16
+    arrayValue                     shift and go to state 14
+    attributeValue                 shift and go to state 13
+
+state 10
+
+    (7) section -> [ sectionName . ] { configElements }
+
+    ]               shift and go to state 19
+
+
+state 11
+
+    (8) sectionName -> NOWS_STRING .
+
+    ]               reduce using rule 8 (sectionName -> NOWS_STRING .)
+
+
+state 12
+
+    (3) configElements -> configElement configElements .
+
+    $end            reduce using rule 3 (configElements -> configElement configElements .)
+    }               reduce using rule 3 (configElements -> configElement configElements .)
+
+
+state 13
+
+    (5) configElement -> attributeName = attributeValue . ;
+
+    ;               shift and go to state 20
+
+
+state 14
+
+    (10) attributeValue -> arrayValue .
+
+    ;               reduce using rule 10 (attributeValue -> arrayValue .)
+
+
+state 15
+
+    (12) stringValue -> NOWS_STRING .
+
+    ;               reduce using rule 12 (stringValue -> NOWS_STRING .)
+
+
+state 16
+
+    (9) attributeValue -> stringValue .
+
+    ;               reduce using rule 9 (attributeValue -> stringValue .)
+
+
+state 17
+
+    (14) arrayValue -> [ . arrayElements ]
+    (15) arrayElements -> . arrayElement
+    (16) arrayElements -> . arrayElement , arrayElements
+    (17) arrayElements -> . empty
+    (18) arrayElement -> . WS_STRING
+    (19) arrayElement -> . NOWS_STRING
+    (20) empty -> .
+
+    WS_STRING       shift and go to state 25
+    NOWS_STRING     shift and go to state 22
+    ]               reduce using rule 20 (empty -> .)
+
+    arrayElements                  shift and go to state 23
+    empty                          shift and go to state 24
+    arrayElement                   shift and go to state 21
+
+state 18
+
+    (11) stringValue -> WS_STRING .
+
+    ;               reduce using rule 11 (stringValue -> WS_STRING .)
+
+
+state 19
+
+    (7) section -> [ sectionName ] . { configElements }
+
+    {               shift and go to state 26
+
+
+state 20
+
+    (5) configElement -> attributeName = attributeValue ; .
+
+    NOWS_STRING     reduce using rule 5 (configElement -> attributeName = attributeValue ; .)
+    [               reduce using rule 5 (configElement -> attributeName = attributeValue ; .)
+    $end            reduce using rule 5 (configElement -> attributeName = attributeValue ; .)
+    }               reduce using rule 5 (configElement -> attributeName = attributeValue ; .)
+
+
+state 21
+
+    (15) arrayElements -> arrayElement .
+    (16) arrayElements -> arrayElement . , arrayElements
+
+    ]               reduce using rule 15 (arrayElements -> arrayElement .)
+    ,               shift and go to state 27
+
+
+state 22
+
+    (19) arrayElement -> NOWS_STRING .
+
+    ,               reduce using rule 19 (arrayElement -> NOWS_STRING .)
+    ]               reduce using rule 19 (arrayElement -> NOWS_STRING .)
+
+
+state 23
+
+    (14) arrayValue -> [ arrayElements . ]
+
+    ]               shift and go to state 28
+
+
+state 24
+
+    (17) arrayElements -> empty .
+
+    ]               reduce using rule 17 (arrayElements -> empty .)
+
+
+state 25
+
+    (18) arrayElement -> WS_STRING .
+
+    ,               reduce using rule 18 (arrayElement -> WS_STRING .)
+    ]               reduce using rule 18 (arrayElement -> WS_STRING .)
+
+
+state 26
+
+    (7) section -> [ sectionName ] { . configElements }
+    (2) configElements -> . configElement
+    (3) configElements -> . configElement configElements
+    (4) configElements -> . empty
+    (5) configElement -> . attributeName = attributeValue ;
+    (6) configElement -> . section
+    (20) empty -> .
+    (13) attributeName -> . NOWS_STRING
+    (7) section -> . [ sectionName ] { configElements }
+
+    }               reduce using rule 20 (empty -> .)
+    NOWS_STRING     shift and go to state 6
+    [               shift and go to state 5
+
+    section                        shift and go to state 2
+    configElements                 shift and go to state 29
+    attributeName                  shift and go to state 4
+    empty                          shift and go to state 7
+    configElement                  shift and go to state 8
+
+state 27
+
+    (16) arrayElements -> arrayElement , . arrayElements
+    (15) arrayElements -> . arrayElement
+    (16) arrayElements -> . arrayElement , arrayElements
+    (17) arrayElements -> . empty
+    (18) arrayElement -> . WS_STRING
+    (19) arrayElement -> . NOWS_STRING
+    (20) empty -> .
+
+    WS_STRING       shift and go to state 25
+    NOWS_STRING     shift and go to state 22
+    ]               reduce using rule 20 (empty -> .)
+
+    arrayElement                   shift and go to state 21
+    empty                          shift and go to state 24
+    arrayElements                  shift and go to state 30
+
+state 28
+
+    (14) arrayValue -> [ arrayElements ] .
+
+    ;               reduce using rule 14 (arrayValue -> [ arrayElements ] .)
+
+
+state 29
+
+    (7) section -> [ sectionName ] { configElements . }
+
+    }               shift and go to state 31
+
+
+state 30
+
+    (16) arrayElements -> arrayElement , arrayElements .
+
+    ]               reduce using rule 16 (arrayElements -> arrayElement , arrayElements .)
+
+
+state 31
+
+    (7) section -> [ sectionName ] { configElements } .
+
+    NOWS_STRING     reduce using rule 7 (section -> [ sectionName ] { configElements } .)
+    [               reduce using rule 7 (section -> [ sectionName ] { configElements } .)
+    }               reduce using rule 7 (section -> [ sectionName ] { configElements } .)
+    $end            reduce using rule 7 (section -> [ sectionName ] { configElements } .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: reduce/reduce conflict in state 8 resolved using rule (configElements -> configElement)
+WARNING: rejected rule (empty -> <empty>) in state 8
