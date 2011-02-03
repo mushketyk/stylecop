@@ -5,9 +5,9 @@ _tabversion = '3.2'
 
 _lr_method = 'LALR'
 
-_lr_signature = b'J\xe4\xc0\xe4\xe2\xd2\xcb\xa6\x9a\x13a\xc9\xc3\xf1\xb1\xea'
+_lr_signature = b'%C\xb4a,\xab\xb6i\xb5\xde\x01\x1a\x02/\x0e='
     
-_lr_action_items = {'}':([2,7,8,12,20,26,29,31,],[-6,-4,-2,-3,-5,-20,31,-7,]),'NOWS_STRING':([0,2,5,8,9,17,20,26,27,31,],[6,-6,11,6,15,22,-5,6,22,-7,]),']':([10,11,17,21,22,23,24,25,27,30,],[19,-8,-20,-15,-19,28,-17,-18,-20,-16,]),',':([21,22,25,],[27,-19,-18,]),'{':([19,],[26,]),'[':([0,2,8,9,20,26,31,],[5,-6,5,17,-5,5,-7,]),'$end':([0,1,2,3,7,8,12,20,31,],[-20,0,-6,-1,-4,-2,-3,-5,-7,]),'=':([4,6,],[9,-13,]),';':([13,14,15,16,18,28,],[20,-10,-12,-9,-11,-14,]),'WS_STRING':([9,17,27,],[18,25,25,]),}
+_lr_action_items = {':':([22,23,27,],[35,-26,-27,]),'}':([2,7,8,12,13,24,25,26,28,34,36,40,41,42,43,44,46,],[-6,-4,-2,-3,-30,-22,37,-24,-5,-30,-30,46,-28,-25,-29,-23,-7,]),'NOWS_STRING':([0,2,5,8,9,13,19,28,34,35,36,38,46,],[6,-6,11,6,17,23,30,-5,6,41,23,30,-7,]),']':([10,11,19,29,30,31,32,33,38,45,],[21,-8,-30,-16,-20,39,-18,-19,-30,-17,]),',':([24,29,30,33,41,42,43,],[36,38,-20,-19,-28,-25,-29,]),';':([14,15,16,17,18,20,37,39,],[28,-11,-10,-13,-9,-12,-21,-15,]),'{':([9,21,],[13,34,]),'WS_STRING':([9,13,19,35,36,38,],[20,27,33,43,27,33,]),'=':([4,6,],[9,-14,]),'[':([0,2,8,9,28,34,46,],[5,-6,5,19,-5,5,-7,]),'$end':([0,1,2,3,7,8,12,28,46,],[-30,0,-6,-1,-4,-2,-3,-5,-7,]),}
 
 _lr_action = { }
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'attributeValue':([9,],[13,]),'sectionName':([5,],[10,]),'arrayValue':([9,],[14,]),'section':([0,8,26,],[2,2,2,]),'configElements':([0,8,26,],[3,12,29,]),'attributeName':([0,8,26,],[4,4,4,]),'arrayElements':([17,27,],[23,30,]),'arrayElement':([17,27,],[21,21,]),'stringValue':([9,],[16,]),'config':([0,],[1,]),'empty':([0,8,17,26,27,],[7,7,24,7,24,]),'configElement':([0,8,26,],[8,8,8,]),}
+_lr_goto_items = {'dictKey':([13,36,],[22,22,]),'attributeValue':([9,],[14,]),'dictionary':([9,],[15,]),'sectionName':([5,],[10,]),'arrayElement':([19,38,],[29,29,]),'arrayValue':([9,],[16,]),'section':([0,8,34,],[2,2,2,]),'configElements':([0,8,34,],[3,12,40,]),'attributeName':([0,8,34,],[4,4,4,]),'arrayElements':([19,38,],[31,45,]),'dictValue':([35,],[42,]),'dictElement':([13,36,],[24,24,]),'dictElements':([13,36,],[25,44,]),'stringValue':([9,],[18,]),'config':([0,],[1,]),'empty':([0,8,13,19,34,36,38,],[7,7,26,32,7,26,32,]),'configElement':([0,8,34,],[8,8,8,]),}
 
 _lr_goto = { }
 for _k, _v in _lr_goto_items.items():
@@ -26,24 +26,34 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> config","S'",1,None,None,None),
-  ('config -> configElements','config',1,'p_config','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',66),
-  ('configElements -> configElement','configElements',1,'p_configElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',72),
-  ('configElements -> configElement configElements','configElements',2,'p_configElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',73),
-  ('configElements -> empty','configElements',1,'p_configElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',74),
-  ('configElement -> attributeName = attributeValue ;','configElement',4,'p_configElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',80),
-  ('configElement -> section','configElement',1,'p_configElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',81),
-  ('section -> [ sectionName ] { configElements }','section',6,'p_section','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',87),
-  ('sectionName -> NOWS_STRING','sectionName',1,'p_sectionName','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',93),
-  ('attributeValue -> stringValue','attributeValue',1,'p_attributeValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',98),
-  ('attributeValue -> arrayValue','attributeValue',1,'p_attributeValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',99),
-  ('stringValue -> WS_STRING','stringValue',1,'p_stringValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',105),
-  ('stringValue -> NOWS_STRING','stringValue',1,'p_stringValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',106),
-  ('attributeName -> NOWS_STRING','attributeName',1,'p_attributeName','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',112),
-  ('arrayValue -> [ arrayElements ]','arrayValue',3,'p_arrayValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',119),
-  ('arrayElements -> arrayElement','arrayElements',1,'p_arrayElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',126),
-  ('arrayElements -> arrayElement , arrayElements','arrayElements',3,'p_arrayElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',127),
-  ('arrayElements -> empty','arrayElements',1,'p_arrayElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',128),
-  ('arrayElement -> WS_STRING','arrayElement',1,'p_arrayElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',139),
-  ('arrayElement -> NOWS_STRING','arrayElement',1,'p_arrayElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',140),
-  ('empty -> <empty>','empty',0,'p_empty','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',148),
+  ('config -> configElements','config',1,'p_config','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',68),
+  ('configElements -> configElement','configElements',1,'p_configElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',76),
+  ('configElements -> configElement configElements','configElements',2,'p_configElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',77),
+  ('configElements -> empty','configElements',1,'p_configElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',78),
+  ('configElement -> attributeName = attributeValue ;','configElement',4,'p_configElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',93),
+  ('configElement -> section','configElement',1,'p_configElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',94),
+  ('section -> [ sectionName ] { configElements }','section',6,'p_section','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',117),
+  ('sectionName -> NOWS_STRING','sectionName',1,'p_sectionName','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',128),
+  ('attributeValue -> stringValue','attributeValue',1,'p_attributeValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',136),
+  ('attributeValue -> arrayValue','attributeValue',1,'p_attributeValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',137),
+  ('attributeValue -> dictionary','attributeValue',1,'p_attributeValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',138),
+  ('stringValue -> WS_STRING','stringValue',1,'p_stringValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',146),
+  ('stringValue -> NOWS_STRING','stringValue',1,'p_stringValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',147),
+  ('attributeName -> NOWS_STRING','attributeName',1,'p_attributeName','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',155),
+  ('arrayValue -> [ arrayElements ]','arrayValue',3,'p_arrayValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',164),
+  ('arrayElements -> arrayElement','arrayElements',1,'p_arrayElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',173),
+  ('arrayElements -> arrayElement , arrayElements','arrayElements',3,'p_arrayElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',174),
+  ('arrayElements -> empty','arrayElements',1,'p_arrayElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',175),
+  ('arrayElement -> WS_STRING','arrayElement',1,'p_arrayElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',189),
+  ('arrayElement -> NOWS_STRING','arrayElement',1,'p_arrayElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',190),
+  ('dictionary -> { dictElements }','dictionary',3,'p_dictionary','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',200),
+  ('dictElements -> dictElement','dictElements',1,'p_dictElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',206),
+  ('dictElements -> dictElement , dictElements','dictElements',3,'p_dictElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',207),
+  ('dictElements -> empty','dictElements',1,'p_dictElements','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',208),
+  ('dictElement -> dictKey : dictValue','dictElement',3,'p_dictElement','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',226),
+  ('dictKey -> NOWS_STRING','dictKey',1,'p_dictKey','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',235),
+  ('dictKey -> WS_STRING','dictKey',1,'p_dictKey','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',236),
+  ('dictValue -> NOWS_STRING','dictValue',1,'p_dictValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',242),
+  ('dictValue -> WS_STRING','dictValue',1,'p_dictValue','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',243),
+  ('empty -> <empty>','empty',0,'p_empty','/home/proger/Documents/Programming/Python/StyleCop/src/config/ConfigParser.py',249),
 ]

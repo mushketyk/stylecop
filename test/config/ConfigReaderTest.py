@@ -40,7 +40,10 @@ class  ConfigReaderTest(unittest.TestCase):
 
             [section2] {
                 attr21 = val;
+                
             }
+
+            dict1 = {val1 : 'long val', 'val val' : value};
         """
         result = self.parser.parseConfig(configString)
 
@@ -60,6 +63,7 @@ class  ConfigReaderTest(unittest.TestCase):
 
         topSection.addAttribute('attr1', 'long value')
         topSection.addAttribute('attr2', ['value1', 'value2'])
+        topSection.addAttribute('dict1', {'val1' : 'long val', 'val val' : 'value'})
 
         expected = topSection
 

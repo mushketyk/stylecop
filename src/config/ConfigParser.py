@@ -8,6 +8,9 @@ import ply.yacc
 from config.ConfigSection import ConfigSection
 from config.ConfigParsingException import ConfigParsingException
 
+# Read ply documentation if you are going to read next
+# because I don't think you'll understand following code
+
 # Class that read config file
 # Config file looks like:
 #    globalAtribute = 'hello user';
@@ -35,7 +38,7 @@ class ConfigParser:
     t_ignore = " \t\n"
 
     # Literals for ply that can be used as single character literals
-    literals = ['[', ',', ']', '{', '}', '=', ';']
+    literals = ['[', ',', ']', '{', '}', '=', ';', ':']
 
     def t_WS_STRING(self, t):
         r"'([a-zA-Z0-9]|(\s))*'"
@@ -47,8 +50,6 @@ class ConfigParser:
         r"[a-zA-Z0-9]+"
         print('t_NOWS_STRING ' + str(t))
         return t
-
-    # t_NEWLINE = '\n'
 
     # Error handler for lex
     def t_error(self, t):
@@ -131,15 +132,18 @@ class ConfigParser:
         p[0] = p[1]
         print(p[0])
 
+
     def p_attributeValue(self, p):
         """
             attributeValue : stringValue
                            | arrayValue
+                           | dictionary
         """
         print('p_attributeValue ' + str(p))
         p[0] = p[1]
         print(p[0])
 
+    # string value rule
     def p_stringValue(self, p):
         """
             stringValue : WS_STRING
@@ -149,6 +153,7 @@ class ConfigParser:
         p[0] = p[1]
         print(p[0])
 
+    # attribute name rule
     def p_attributeName(self, p):
         """
             attributeName : NOWS_STRING
@@ -194,6 +199,67 @@ class ConfigParser:
         p[0] = [p[1]]
         print(p[0])
 
+    # dictionary rule
+    def p_dictionary(self, p):
+        """
+            dictionary : '{' dictElements '}'
+        """
+        p[0] = p[2]
+
+    # dictionary elements rule
+    def p_dictElements(self, p):
+        """
+            dictElements : dictElement
+                         | dictElement ',' dictElements
+                         | empty
+        """
+        # if dictElements is empty
+        if not p[1]:
+            p[0] = {}
+            return
+
+        # dictElements isn't empty so first element in rule is dictElement
+        # and it is list [key, value] of new dictionary element
+        dictElement = p[1]
+        dictKey = dictElement[0]
+        dictValue = dictElement[1]
+        # if there a lot dictionary elements...
+        if len(p) > 2:
+            dictElements = p[3]
+            # ... add new element to dictionary
+            dictElements[dictKey] = dictValue
+            # ... return dictionary
+            p[0] = dictElements
+        else:
+            # one last element - create dictionary with it's key, value
+            p[0] = {dictKey : dictValue}
+        
+    # dictionary element rule
+    def p_dictElement(self, p):
+        """
+            dictElement : dictKey ':' dictValue
+        """
+        dictKey = p[1]
+        dictValue = p[3]
+
+        p[0] = [dictKey, dictValue]
+
+    # dictionary key
+    def p_dictKey(self, p):
+        """
+            dictKey : NOWS_STRING
+                    | WS_STRING
+        """
+        p[0] = p[1]
+
+    # dictionary value
+    def p_dictValue(self, p):
+        """
+            dictValue : NOWS_STRING
+                      | WS_STRING
+        """
+        p[0] = p[1]
+
     # Rule for empty token
     def p_empty(self, p):
         'empty :'
@@ -209,22 +275,15 @@ class ConfigParser:
         raise ConfigParsingException(errorMessage)
 
     def __init__(self, toDebug = 0):
-         # Creating lexical analyzer
+        # Creating lexical analyzer
         self.lexer = ply.lex.lex(module=self, debug = toDebug)
         # Create yacc
-        self.parser = ply.yacc.yacc(module=self)
-
-        
+        self.parser = ply.yacc.yacc(module=self)       
 
 
     # Return ConfigSection that contains all section of config file
     def parseConfig(self, configString):
-       # self.sectionsStack = [ConfigSection()]
-        #self.rootSection = SectionConfig()
         self.parser.parse(configString)
 
         return self.rootSection
-        # return sectionsStack[0]
 
-if __name__ == "__main__":
-    pass
