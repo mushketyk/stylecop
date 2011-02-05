@@ -10,6 +10,3 @@ class ConfigParsingException(Exception):
 
     def __str__(self):
         return repr(self.val)
-
-if __name__ == "__main__":
-    pass
