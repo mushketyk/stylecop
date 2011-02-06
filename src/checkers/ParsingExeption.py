@@ -2,11 +2,13 @@
 # and open the template in the editor.
 
 __author__="proger"
-__date__ ="$Feb 1, 2011 6:12:37 PM$"
+__date__ ="$Feb 5, 2011 7:44:18 PM$"
 
-class ConfigParsingException(Exception):
+class ParsingException(Exception):
     def __init__(self, val):
         self.val = val
 
     def __str__(self):
         return repr(self.val)
+
+
