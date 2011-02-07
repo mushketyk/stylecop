@@ -5,6 +5,7 @@ import unittest
 
 import config
 from config.ConfigSection import ConfigSection
+from config.ConfigParsingException import ConfigParsingException
 
 class  ConfigSectionTest(unittest.TestCase):
     def setUp(self):
@@ -75,6 +76,38 @@ class  ConfigSectionTest(unittest.TestCase):
                          None,
                          "config.getAttribute on deleted attributes should return None")
 
+    def testGetDictionary(self):
+        dictionaryName = "dictionary"
+        dictionaryValue = {"key" : "val"}
+        stringName = "str"
+        stringValue = "val"
+
+        self.config.addAttribute(dictionaryName, dictionaryValue)
+        self.config.addAttribute(stringName, stringValue)
+        
+        result = self.config.getDictionary(dictionaryName)
+        
+        self.assertEqual(result, dictionaryValue, 
+                         "")
+        self.assertRaises(ConfigParsingException, self.config.getDictionary, stringName)
+
+    def testGetStringFromList(self):
+        stringName = "name"
+        stringValue = "value"
+        self.config.addAttribute(stringName, stringValue)
+
+        result = self.config.getStringFromList(stringName, ["value", "value1", "value2"])
+        self.assertEqual(result, stringValue, "")
+
+        self.assertRaises(ConfigParsingException, self.config.getStringFromList, stringName, ["wrong", "wrong1", "wrong2"])
+
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    suit = unittest.TestLoader().loadTestsFromTestCase(ConfigSectionTest)
+    print(suit)
+    result = unittest.TestResult()
+    suit.run(result)
+
+    print(result)
+
 
