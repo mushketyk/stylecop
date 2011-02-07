@@ -3,6 +3,7 @@
 
 import unittest
 
+import config
 from config.ConfigParser import ConfigParser
 from config.ConfigSection import ConfigSection
 
@@ -48,7 +49,7 @@ class  ConfigReaderTest(unittest.TestCase):
         result = self.parser.parseConfig(configString)
 
         section11 = ConfigSection()
-        section11.addAttribute('attr111', ['el1', 'el2', 'el3'])
+        section11.addAttribute('attr111', ('el1', 'el2', 'el3'))
 
         section1 = ConfigSection()
         section1.addAttribute('attr11', 'val val')
@@ -62,7 +63,7 @@ class  ConfigReaderTest(unittest.TestCase):
         topSection.addSection('section2', section2)
 
         topSection.addAttribute('attr1', 'long value')
-        topSection.addAttribute('attr2', ['value1', 'value2'])
+        topSection.addAttribute('attr2', ('value1', 'value2'))
         topSection.addAttribute('dict1', {'val1' : 'long val', 'val val' : 'value'})
 
         expected = topSection
