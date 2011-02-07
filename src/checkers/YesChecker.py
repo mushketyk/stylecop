@@ -14,7 +14,7 @@ class YesChecker(AbstractChecker):
         AbstractChecker.__init__(self, config)
 
     def check(self, stringSource):
-        return 0
+        return []
 
 if __name__ == "__main__":
     pass

@@ -14,7 +14,10 @@ class ConfigSection:
         return [key for key in self.sections.keys()]
 
     def getSection(self, sectionName):
-        return self.sections[sectionName]
+        if sectionName in self.sections.keys():
+            return self.sections[sectionName]
+        else:
+            return None
 
     def addSection(self, sectionName, section):
         self.sections[sectionName] = section
@@ -26,12 +29,27 @@ class ConfigSection:
         return [key for key in self.attributes.keys()]
 
     def getAttribute(self, attributeName):
-        return self.attributes[attributeName]
+        if attributeName in self.attributes.keys():
+            return self.attributes[attributeName]
+        else:
+            return None
+
+    def getDictionary(self, dictionaryName):
+        pass
+
+    def getArray(self, arrayName):
+        pass
+    
+    def getString(self, attributeName):
+        pass
+    
+    def getStringFromList(self, attributeName, validList):
+        pass
 
     def addAttribute(self, attributeName, attributeValue):
         self.attributes[attributeName] = attributeValue
 
-    def delAtribute(self, attributeName):
+    def delAttribute(self, attributeName):
         del self.attributes[attributeName]
 
     def __str__(self):

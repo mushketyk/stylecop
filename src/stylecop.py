@@ -35,12 +35,15 @@ def main():
         config = configParser.parse(configString)
 
         factory = repos.ReposFactory()
-        repository = factory.getRepository(args.repo, args.stage, config)
+        repository = factory.getRepository(args.repo, args.stage)
         changedFiles = repository.getChangedFiles(repoParams)
 
-        checkersFactory = CheckersFactory(config)
+        extensionsDict = config.getDictionary("extensions")
 
-        errors = 0
+        checkersFactory = CheckersFactory(extensionsDict)
+
+        # List of strings of style violations
+        errors = []
 
         for file in changedFiles:
             ext = getFileExtension(file)
@@ -49,18 +52,19 @@ def main():
 
             errors += checker.check()
 
-        if errors > 0:
-            sys.stderr.write("Total number of style errors: " + errors)
-            sys.stderr.write("Update failed")
-
-        # If there were no errors we permit this update
-        return errors
+        
 
     except ValueError as er:
         pass
     except Exception as ex:
         pass
     
+    if len(errors) > 0:
+        repository.sendError("Total number of style errors: " + errors)
+        repository.sendError("Update failed")
+            
+    # If there were no errors we permit this update
+    return len(errors)
 
 
 if __name__ == '__main__':
