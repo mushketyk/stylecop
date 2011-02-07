@@ -3,9 +3,6 @@
 
 import sys
 
-sys.path.append('/home/proger/Documents/Programming/Python/StyleCop/test/config')
-print(sys.path)
-
 import unittest
 import config
 from configTest.ConfigReaderTest import ConfigReaderTest
