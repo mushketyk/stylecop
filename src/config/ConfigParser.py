@@ -42,13 +42,13 @@ class ConfigParser:
 
     def t_WS_STRING(self, t):
         r"'([a-zA-Z0-9]|(\s))*'"
-        print('t_WS_STRING ' + str(t))
+        
         t.value = t.value.strip("'")
         return t
 
     def t_NOWS_STRING(self, t):
         r"[a-zA-Z0-9]+"
-        print('t_NOWS_STRING ' + str(t))
+        
         return t
 
     # Error handler for lex
@@ -67,10 +67,9 @@ class ConfigParser:
     def p_config(self, p):
         """
             config : configElements
-        """
-        print('p_config ' + str(p))
+        """        
         self.rootSection = self._configElementsToSection(p[1])
-        print(str(self.rootSection))
+        
 
     def p_configElements(self, p):
         """
@@ -78,8 +77,7 @@ class ConfigParser:
                            | configElement configElements
                            | empty
         """
-        print('p_configElements ' + str(p))
-        
+                
 
         if len(p) > 2:
             configElements = p[2]
@@ -94,14 +92,14 @@ class ConfigParser:
             configElement : attributeName '=' attributeValue ';'
                           | section
         """
-        print('p_configElement ' + str(p))
+        
         if len(p) > 2:
             attributeValue = p[3]
             attributeName = p[1]
             p[0] = [ [attributeValue, attributeName] ]
         else:
             p[0] = [ p[1] ]
-        print(str(p[0]))
+        
 
     def _configElementsToSection(self, configElements):
         section = ConfigSection()
@@ -117,60 +115,53 @@ class ConfigParser:
         """
             section : '[' sectionName ']' '{' configElements '}'
         """
-        print('p_section ' + str(p))
-
+        
         section = self._configElementsToSection(p[5])
         sectionName = p[2]
         p[0] = [section, sectionName]
-        print('[' + str(section) + ', ' + sectionName + ']')
-
+        
     def p_sectionName(self, p):
         """
             sectionName : NOWS_STRING
         """
-        print('p_sectionName ' + str(p))
+        
         p[0] = p[1]
-        print(p[0])
-
-
+        
     def p_attributeValue(self, p):
         """
             attributeValue : stringValue
                            | arrayValue
                            | dictionary
         """
-        print('p_attributeValue ' + str(p))
+        
         p[0] = p[1]
-        print(p[0])
-
+        
     # string value rule
     def p_stringValue(self, p):
         """
             stringValue : WS_STRING
                         | NOWS_STRING
         """
-        print('p_stringValue ' + str(p))
+        
         p[0] = p[1]
-        print(p[0])
+        
 
     # attribute name rule
     def p_attributeName(self, p):
         """
             attributeName : NOWS_STRING
         """
-        print('p_attributeName ' + str(p))
+        
         p[0] = p[1]
-        print(p[0])
-
+        
     # Rule for array
     def p_arrayValue(self, p):
         """
             arrayValue : '[' arrayElements ']'
         """
-        print('p_arrayValue ' + str(p))
+        
         p[0] = tuple(p[2])
-        print(p[0])
-
+        
     # Rule for array elements
     def p_arrayElements(self, p):
         """
@@ -178,14 +169,13 @@ class ConfigParser:
                           | arrayElement ',' arrayElements
                           | empty
         """
-        print('p_arrayElements ' + str(p))
+        
         if len(p) > 2:
             p[0] =  p[1] + p[3]
         elif p[1]:
             p[0] = p[1]
         else:
             p[0] = []
-        print(p[0])
 
     # Rule for array element
     def p_arrayElement(self, p):
@@ -195,9 +185,9 @@ class ConfigParser:
         """
         # At this place p[1] is a value that was returned by lexical analyzator
         # and contains element that can be added to result list
-        print('p_arrayElement ' + str(p))
+
         p[0] = [p[1]]
-        print(p[0])
+
 
     # dictionary rule
     def p_dictionary(self, p):
@@ -263,7 +253,6 @@ class ConfigParser:
     # Rule for empty token
     def p_empty(self, p):
         'empty :'
-        print('p_empty ' + str(p))
         pass
 
     # Error handler for yacc

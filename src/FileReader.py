@@ -11,7 +11,7 @@ BUF_SIZE = 4096
 def readFile(fileName):
     file = None
     try:
-        file = open(fileName, "rb", BUF_SIZE)
+        file = open(fileName, "r", BUF_SIZE)
         result = file.read()
         
         return result
