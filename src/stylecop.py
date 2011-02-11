@@ -50,7 +50,7 @@ def main():
             checker = checkersFactory.getChecker(ext)
             sourceString = FileReader.readFile(file)
 
-            errors += checker.check()
+            errors += checker.check(sourceString)
 
         
 

@@ -12,12 +12,10 @@ class AbstractChecker():
     def getConfig(self):
         return self.config
 
-    # Method that checks source file style. Sources file is a single string
-    # with \n symbol at the end of each line because ply can read only
-    # string as it input
+    # Method that checks source file style.
     # Method should return list of strings of style violations
     # and throw ParsingExeption error if checker fails to parse a file
-    def check(self, sourceString):
+    def check(self, sourceFile):
         raise NotImplementedError('AbstractChecker.check is an abstract method')
 
 if __name__ == "__main__":

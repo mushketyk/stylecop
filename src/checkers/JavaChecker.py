@@ -11,7 +11,7 @@ import ply.yacc
 import checkers
 from checkers.AbstractChecker import AbstractChecker
 
-class JavaChecker(AbstractChecker):
+class JavaChecker(AbstractStringChecker):
     tokens = (
         'LONGLITERAL',
         'INTLITERAL',
@@ -155,9 +155,9 @@ class JavaChecker(AbstractChecker):
 
 
     def __init(self, config):
-        AbstractChecker.__init__(self, config)
+        AbstractStringChecker.__init__(self, config)
 
-    def check(self, stringSource):
+    def doStringCheck(self, stringSource):
         return []
 
 if __name__ == "__main__":

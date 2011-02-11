@@ -4,12 +4,11 @@
 __author__="sveta"
 __date__ ="$Feb 3, 2011 10:44:33 AM$"
 
-from config.parsers.AbstractParser import AbstractParser
 
 # Dictionary parser for config. It handles attributes like:
 #attr: { key_1 = 'value1', key_2 = 'value2', key_n = 'valuen'}
 
-class DictionaryParser(AbstractParser):
+class DictionaryParser:
     literals=['{','=',',','}']
 
     def p_dictionary(self,p):
