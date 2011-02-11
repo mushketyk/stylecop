@@ -112,6 +112,9 @@ class JavaChecker(AbstractStringChecker):
     t_PERCENTEQ = r"%="
     t_BANGEQ = r"!="
 
+    tokens = ['LONGLITERAL','INTLITERAL','HEXLITERAL','FLOATLITERAL','DOUBLELITERAL','CHARLITERAL','STRINGLITERAL','ONEROWCOMMENT',
+    'MULTIROWCOMMENT','ELLIPSIS','EQEQ','AMPAMP','BARBAR','PLUSPLUS','SUBSUB','PLUSEQ','SUBEQ','STAREQ',
+    'SLASHEQ','AMPEQ','BAREQ','CARETEQ','PERCENTEQ','BANGEQ'] + list(reserved.values())
 
     def t_LONGLITERAL(self,t):
         r"(\d)+(l|L)"
@@ -125,24 +128,20 @@ class JavaChecker(AbstractStringChecker):
         r"(0[0-7]+)|((0x|0X)(\d|[a-f]|[A-F])+)"
         return t
 
-
     def t_FLOATLITERAL(self,t):
         r"\d+\.\d*([eE][+\-]?\d+)([fF]?)"
         return t
-    
     
     def t_DOUBLELITERAL(self,t):
         r"\d+\.\d*([eE][+\-]?\d+)([dD]?)"
         return t
 
-    #TODO  write it later
     def t_CHARLITERAL(self,t):
-        r""
+        r"'\w'"
         return t
     
-    #TODO  write it later
     def t_STRINGLITERAL(self,t):
-
+        r"'([a-zA-Z0-9]|(\s)*)*'"
         return t
     
     def t_ONEROWCOMMENT(self,t):
@@ -152,7 +151,6 @@ class JavaChecker(AbstractStringChecker):
     def t_MULTIROWCOMMENT(self,t):
         r"/\*.*\*/"
         pass
-
 
     def __init(self, config):
         AbstractStringChecker.__init__(self, config)
