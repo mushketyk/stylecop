@@ -125,19 +125,19 @@ class JavaChecker(AbstractChecker):
         r"(0[0-7]+)|((0x|0X)(\d|[a-f]|[A-F])+)"
         return t
 
-    #TODO Complicated regexp, write it later
+
     def t_FLOATLITERAL(self,t):
-        
+        r"\d+\.\d*([eE][+\-]?\d+)([fF]?)"
         return t
     
-    #TODO Complicated regexp, write it later
+    
     def t_DOUBLELITERAL(self,t):
-
+        r"\d+\.\d*([eE][+\-]?\d+)([dD]?)"
         return t
 
     #TODO  write it later
     def t_CHARLITERAL(self,t):
-
+        r""
         return t
     
     #TODO  write it later
